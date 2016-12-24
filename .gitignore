@@ -1,2 +1,6 @@
 *.db
-/node_modules/*
+
+/.vscode/
+/cache/
+/node_modules/
+/build/

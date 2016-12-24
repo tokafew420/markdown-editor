@@ -1,13 +1,27 @@
-	{
-	  "name": "markdown_editor",
-	  "main": "./html/index.html",
-	  "single-instance": false,
-	  "window": {
-		"toolbar": false,
-		"show": true,
-		"icon": "./img/icon.png"
-	  },
-	  "dependencies": {
-		"marked": "^0.3.3"
-	  }
-	}
+{
+  "name": "markdown_editor",
+  "version": "0.1.0",
+  "main": "./html/index.html",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tokafew420/markdown-editor.git"
+  },
+  "scripts": {
+    "build": "node nwbuild.js"
+  },
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "marked": "^0.3.3",
+    "taboverride": "^4.0.3"
+  },
+  "devDependencies": {
+    "nw-builder": "^3.0.0"
+  },
+  "single-instance": false,
+  "window": {
+    "toolbar": false,
+    "show": true,
+    "icon": "./img/icon.png"
+  }
+}

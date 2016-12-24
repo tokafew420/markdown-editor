@@ -1,0 +1,9 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "jquery": true,
+    "jasmine": true
+  },
+  "rules": {}
+}
