@@ -21,6 +21,13 @@ To build, just run: `npm run build`
 
 All changes logged here are updates to the original source.
 
+### v0.2.0
+
+- Changed editor into an EventEmitter and added 'dirty' and 'file-loaded' events.
+- Enable/disable file save on dirty state.
+- Added 'Save As' menu option.
+- Added 'filepath' property to editor to track currently opened file.
+
 ### v0.1.0
 
 - Forked repo.

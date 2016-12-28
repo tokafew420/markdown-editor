@@ -7,9 +7,11 @@ function init() {
         if (global.gui.App.argv.length > 0) {
             editor.loadFile(global.gui.App.argv[0]);
         }
+        
         var textEditor = global.$('#editor');
+        
         textEditor.bind('input propertychange', function () {
-            editor.reload();
+            editor.update();
         });
         tabOverride.set(textEditor);
     });
