@@ -3,10 +3,12 @@
 
 <head>
     <title>Markdown Editor</title>
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="../css/screen.css" media="screen" />
     <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="../node_modules/taboverride/build/output/taboverride.min.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
     <script type="text/javascript">
         global.window = window;
         global.$ = $;
@@ -17,10 +19,9 @@
 </head>
 
 <body>
-    <input style="display:none;" id="openFileDialog" type="file" />
-    <input style="display:none;" id="saveFileDialog" type="file" nwsaveas />
+    <input style="display:none;" id="fileDialog" type="file" />
     <textarea name="markdown" id="editor" class="md_editor"></textarea>
-    <div class="md_result">
+    <div id="preview" class="md_preview">
     </div>
 </body>
 

@@ -6,8 +6,9 @@ var nw = new NwBuilder({
         './html/**/**',
         './img/**/**',
         './js/**/**',
-        './node_modules/marked/**/**',
+        './node_modules/bootstrap/dist/**/**',
         './node_modules/jquery/dist/**/**',
+        './node_modules/marked/**/**',
         './node_modules/taboverride/build/output/**/**'
     ],
     platforms: ['win64'],

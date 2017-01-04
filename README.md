@@ -21,6 +21,16 @@ To build, just run: `npm run build`
 
 All changes logged here are updates to the original source.
 
+### v0.3.0
+
+- Add modal dialog when switching files and the current file is dirty.
+- Add Bootstrap for modal component.
+- Add modal module (wrapper for bootstrap modal component).
+- Add utils module.
+- Fixed File dialog so that change event fires properly.
+  - Moved file dialog to a separate module.
+  - Clear file dialog value on new.
+
 ### v0.2.0
 
 - Changed editor into an EventEmitter and added 'dirty' and 'file-loaded' events.

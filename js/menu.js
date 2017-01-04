@@ -1,6 +1,46 @@
-var fs = require('fs'),
-    editor = require("./../js/editor.js");
+/**
+ * menu
+ * 
+ * Contains menu initialization and functionality.
+ */
+var editor = require("./editor.js"),
+    fileDialog = require('./file-dialog.js'),
+    modal = require('./modal.js');
 
+
+/**
+ * promptToSave([callback])
+ * 
+ * Prompts the user to save prior to performing the callback function.
+ * 
+ * @param {function} callback The callback after the possible save.
+ */
+function promptToSave(callback) {
+    if (editor.dirty) {
+        modal.confirm2({
+            title: 'Unsaved Changes',
+            message: 'You have unsaved changes. Do you want to save?',
+            no: "Don't Save",
+            yes: 'Save'
+        }, function (save) {
+            // If the save is not needed then just callback, else pass the callback to the save function.
+            if (save == false) {
+                callback();
+            } else if (save) {
+                editor.save(editor.filepath, callback);
+            }
+        });
+    } else {
+        callback();
+    }
+}
+
+
+/**
+ * initMenu()
+ * 
+ * Initializes the app menu bar.
+ */
 module.exports.initMenu = function () {
     // Create app menubar
     var win = global.gui.Window.get();
@@ -13,45 +53,32 @@ module.exports.initMenu = function () {
         label: 'File',
         submenu: fileMenu
     }));
-    // Append menubar to window
-    win.menu = menubar;
 
     fileMenu.append(new global.gui.MenuItem({
         label: 'New',
-        click: function () {
-            editor.loadText("");
-            editor.filepath = '';
-            fileSave.enabled = true;
-        }
+        click: promptToSave.bind(null, function () {
+            editor.loadNew(function () {
+                fileSave.enabled = true;
+                fileDialog.clear("#fileDialog");
+            });
+        })
     }));
-    
+
     fileMenu.append(new global.gui.MenuItem({
         label: 'Open',
-        click: function () {
-            editor.chooseFile("#openFileDialog", function (filename) {
+        click: promptToSave.bind(null, function () {
+            fileDialog.open("#fileDialog", function (filename) {
                 editor.loadFile(filename);
-                editor.filepath = filename;
             });
-        }
+        })
     }));
 
     var fileSave = new global.gui.MenuItem({
         label: 'Save',
         click: function () {
-            if (editor.filepath) {
-                editor.save(editor.filepath, function (err) {
-                    if (!err) fileSave.enabled = false;
-                });
-            } else {
-                editor.chooseFile("#saveFileDialog", function (filename) {
-                    editor.save(filename, function (err) {
-                        if (!err) {
-                            fileSave.enabled = false;
-                            editor.filepath = filename;
-                        }
-                    })
-                });
-            }
+            editor.save(editor.filepath, function (err) {
+                if (!err) fileSave.enabled = false;
+            });
         }
     });
     fileMenu.append(fileSave);
@@ -65,21 +92,22 @@ module.exports.initMenu = function () {
     fileMenu.append(new global.gui.MenuItem({
         label: 'Save As',
         click: function () {
-            editor.chooseFile("#saveFileDialog", function (filename) {
-                editor.save(filename, function (err) {
-                    if (!err) {
-                        fileSave.enabled = false;
-                        editor.filepath = filename;
-                    }
-                })
+            editor.save('', function (err) {
+                if (!err) {
+                    fileSave.enabled = false;
+                }
             });
         }
     }));
 
     fileMenu.append(new global.gui.MenuItem({
         label: 'Exit',
-        click: function () {
+        click: promptToSave.bind(null, function () {
             global.gui.App.quit();
-        }
+        })
     }));
+
+    // Append menubar to window
+    // This has to be done after all menubar items have been appended
+    win.menu = menubar;
 };
