@@ -61,7 +61,9 @@ module.exports.initMenu = function () {
                 fileSave.enabled = true;
                 fileDialog.clear("#fileDialog");
             });
-        })
+        }),
+        key: 'n',
+        modifiers: 'ctrl'
     }));
 
     fileMenu.append(new global.gui.MenuItem({
@@ -70,7 +72,9 @@ module.exports.initMenu = function () {
             fileDialog.open("#fileDialog", function (filename) {
                 editor.loadFile(filename);
             });
-        })
+        }),
+        key: 'o',
+        modifiers: 'ctrl'
     }));
 
     var fileSave = new global.gui.MenuItem({
@@ -79,7 +83,9 @@ module.exports.initMenu = function () {
             editor.save(editor.filepath, function (err) {
                 if (!err) fileSave.enabled = false;
             });
-        }
+        },
+        key: 's',
+        modifiers: 'ctrl'
     });
     fileMenu.append(fileSave);
     editor.on('dirty', function () {
@@ -106,6 +112,12 @@ module.exports.initMenu = function () {
             global.gui.App.quit();
         })
     }));
+    win.on('close', function () {
+        var self = this;
+        promptToSave(function () {
+            self.close(true);
+        });
+    });
 
     // Append menubar to window
     // This has to be done after all menubar items have been appended

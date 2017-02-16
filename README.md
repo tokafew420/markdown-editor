@@ -21,6 +21,11 @@ To build, just run: `npm run build`
 
 All changes logged here are updates to the original source.
 
+### v0.4.0
+
+- Added keyboard shortcuts for file menu items.
+- Capture window close event to prompt for saving of dirty file.
+
 ### v0.3.0
 
 - Add modal dialog when switching files and the current file is dirty.
